@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-export default function Navbar() {
+export default function Navbar({ role }: { role?: string }) {
   const router = useRouter();
 
   const handleLogout = async () => {
@@ -20,6 +20,9 @@ export default function Navbar() {
       <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
         <Link href="/dashboard" style={{ fontWeight: 500, color: '#cbd5e1' }}>Dashboard</Link>
         <Link href="/projects" style={{ fontWeight: 500, color: '#cbd5e1' }}>Projects</Link>
+        {role === 'ADMIN' && (
+          <Link href="/admin" style={{ fontWeight: 500, color: '#facc15' }}>Admin Panel</Link>
+        )}
         <button onClick={handleLogout} className="btn" style={{ padding: '0.5rem 1rem', fontSize: '0.875rem' }}>Logout</button>
       </div>
     </nav>

@@ -6,6 +6,7 @@ import { z } from 'zod'
 const projectSchema = z.object({
   name: z.string().min(1),
   description: z.string().optional(),
+  ownerId: z.string().optional(),
 })
 
 export async function GET() {
@@ -31,13 +32,13 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json()
-    const { name, description } = projectSchema.parse(body)
+    const { name, description, ownerId } = projectSchema.parse(body)
 
     const project = await prisma.project.create({
       data: {
         name,
         description,
-        ownerId: session.userId,
+        ownerId: ownerId || session.userId,
       }
     })
 

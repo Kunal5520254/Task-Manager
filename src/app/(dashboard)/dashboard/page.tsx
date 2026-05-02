@@ -1,6 +1,9 @@
 import { getSession } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
+import AutoRefresh from '@/components/AutoRefresh';
+
+export const dynamic = 'force-dynamic';
 
 export default async function Dashboard() {
   const session = await getSession();
@@ -19,6 +22,7 @@ export default async function Dashboard() {
 
   return (
     <div>
+      <AutoRefresh intervalMs={10000} />
       <h1 style={{ fontSize: '2rem', marginBottom: '1.5rem', fontWeight: 700 }}>Dashboard Overview</h1>
       
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>
